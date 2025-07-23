@@ -3,26 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>QuickGame.space – Build Viral Browser Games</title>
+  <title>QuickGame.space – Tiny Viral Browser Games</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* ---- Animated gradient background ---- */
-    .bg-animated {
-      background: radial-gradient(circle at 20% 20%, #5b21b6 0%, #1f2937 35%) ,
-                  radial-gradient(circle at 80% 80%, #f59e0b 0%, #1f2937 45%);
-      background-blend-mode: screen;
-      animation: shift 12s ease-in-out infinite alternate;
+    body { font-family: 'Inter', sans-serif; }
+
+    /* --------- Parallax / layered space background ---------- */
+    .space-bg {
+      background:
+        url("images/bg-stars.png") repeat,
+        radial-gradient(circle at 20% 20%, rgba(91,33,182,.6) 0%, rgba(31,41,55,1) 60%),
+        radial-gradient(circle at 80% 80%, rgba(245,158,11,.4) 0%, rgba(31,41,55,1) 55%);
+      background-size: auto, cover, cover;
+      animation: drift 40s linear infinite;
     }
-    @keyframes shift {
-      0% { background-position: 0% 0%, 100% 100%; }
-      100% { background-position: 100% 100%, 0% 0%; }
+    @keyframes drift {
+      0% { background-position: 0 0, 0 0, 0 0; }
+      100% { background-position: 1000px 600px, 0 0, 0 0; }
+    }
+
+    .nebula-layer {
+      background-image: url("images/bg-nebula.png");
+      background-size: cover;
+      background-position: center;
+      opacity: .25;
+    }
+    .planet-layer {
+      background-image: url("images/bg-planets.png");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: 80% 20%;
+      opacity: .3;
     }
 
     /* subtle grid overlay */
     .grid-overlay:before {
       content: "";
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
                         linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
       background-size: 40px 40px;
@@ -30,145 +47,132 @@
       z-index: -1;
     }
 
-    body { font-family: 'Inter', sans-serif; }
-    .section-title { @apply text-3xl font-bold mb-6; }
-    .card { @apply bg-gray-700/60 backdrop-blur p-6 rounded-xl text-left; }
+    .section-title { @apply text-3xl md:text-4xl font-bold mb-6; }
+    .card { @apply bg-gray-700/60 backdrop-blur p-6 rounded-xl; }
   </style>
 </head>
 <body class="bg-gray-900 text-white grid-overlay">
 
-  <!-- HERO -->
-  <section class="min-h-screen flex flex-col items-center justify-center text-center px-6 bg-animated relative overflow-hidden">
-    <img src="logo.png" alt="QuickGame Logo" class="w-28 mb-5 drop-shadow-lg">
-    <h1 class="text-4xl md:text-6xl font-extrabold mb-4">Build Viral Games. Fast.</h1>
-    <p class="text-lg md:text-xl text-gray-200 max-w-2xl mb-8">
-      A playground for students and indie devs to ship addictive browser games in hours using AI copilots like Cursor.
-    </p>
-    <div class="flex flex-col sm:flex-row gap-4">
-      <a href="#starter" class="bg-yellow-400 text-gray-900 font-bold px-6 py-3 rounded-lg hover:bg-yellow-300 transition">Get Starter Kit</a>
-      <a href="https://www.linkedin.com/company/quickgame-space" target="_blank" class="bg-blue-600 hover:bg-blue-500 font-bold px-6 py-3 rounded-lg transition">Contact via LinkedIn</a>
-    </div>
-    <span class="absolute bottom-6 text-gray-400 text-sm">Made by students, for students.</span>
-  </section>
+<!-- decorative background layers -->
+<div class="fixed inset-0 -z-50 space-bg"></div>
+<div class="fixed inset-0 -z-40 nebula-layer"></div>
+<div class="fixed inset-0 -z-30 planet-layer"></div>
 
-  <!-- WHY BUILD WITH US -->
-  <section class="py-20 bg-gray-800">
-    <div class="max-w-5xl mx-auto text-center px-6">
-      <h2 class="section-title">Why You'll Love It</h2>
-      <div class="grid md:grid-cols-3 gap-8 mt-10">
-        <div class="card">
-          <h3 class="text-xl font-bold mb-2">Fast Dev Cycles</h3>
-          <p class="text-gray-300">Ship a playable prototype in a weekend with AI-assisted coding.</p>
-        </div>
-        <div class="card">
-          <h3 class="text-xl font-bold mb-2">Go Viral</h3>
-          <p class="text-gray-300">Snackable mechanics built for sharing on TikTok, Insta & Discord.</p>
-        </div>
-        <div class="card">
-          <h3 class="text-xl font-bold mb-2">Portfolio Power</h3>
-          <p class="text-gray-300">Publish under your name, get proof-of-work, land internships faster.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- STARTER KITS -->
-  <section id="starter" class="py-20 bg-gray-900">
-    <div class="max-w-4xl mx-auto px-6 text-center">
-      <h2 class="section-title">Starter Kits</h2>
-      <p class="text-gray-300 mb-10">Clone, tweak, launch. Templates designed to be hacked with AI.</p>
-      <div class="grid md:grid-cols-2 gap-8 text-left">
-        <div class="card">
-          <h4 class="font-semibold text-lg mb-2">⚡ Hyper-Casual Pack</h4>
-          <ul class="list-disc list-inside text-gray-300 space-y-1">
-            <li>One-button runner</li>
-            <li>Tap-to-stack tower</li>
-            <li>2048-style puzzle</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h4 class="font-semibold text-lg mb-2">🕹️ Multiplayer Mini Pack</h4>
-          <ul class="list-disc list-inside text-gray-300 space-y-1">
-            <li>Socket.io realtime starter</li>
-            <li>Simple arena battle</li>
-            <li>Leaderboards & chat</li>
-          </ul>
-        </div>
-      </div>
-      <a href="https://www.linkedin.com/company/quickgame-space" target="_blank" class="inline-block mt-10 bg-blue-600 hover:bg-blue-500 font-bold px-6 py-3 rounded-lg transition">Request Access</a>
-    </div>
-  </section>
-
-  <!-- WEEKLY GAME JAM -->
-  <section class="py-20 bg-gray-800">
-    <div class="max-w-4xl mx-auto px-6 text-center">
-      <h2 class="section-title">Weekly Mini-Jam</h2>
-      <p class="text-gray-300 mb-8">Every Friday we drop a tiny theme. You ship by Sunday night. Winner gets featured.</p>
-      <div class="card inline-block">
-        <p class="text-gray-200"><strong>This Week’s Theme:</strong> “Gravity is Broken”</p>
-        <p class="text-sm text-gray-400 mt-2">Submit by Sunday 23:59 AEST</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- TECH STACK -->
-  <section class="py-20 bg-gray-900">
-    <div class="max-w-5xl mx-auto px-6 text-center">
-      <h2 class="section-title">Tech Stack (Simple & Free)</h2>
-      <div class="grid md:grid-cols-4 gap-6 mt-10">
-        <div class="card"><span class="font-semibold">Phaser.js</span><br><span class="text-gray-400 text-sm">2D game engine</span></div>
-        <div class="card"><span class="font-semibold">HTML5 Canvas</span><br><span class="text-gray-400 text-sm">Bare metal speed</span></div>
-        <div class="card"><span class="font-semibold">Node + Socket.io</span><br><span class="text-gray-400 text-sm">Realtime multiplayer</span></div>
-        <div class="card"><span class="font-semibold">Vercel / Netlify</span><br><span class="text-gray-400 text-sm">1-click deploy</span></div>
-      </div>
-      <p class="text-gray-400 text-sm mt-6">…or anything you like. We don’t gate tech choices.</p>
-    </div>
-  </section>
-
-  <!-- SHOWCASE -->
-  <section class="py-20 bg-gray-800">
-    <div class="max-w-5xl mx-auto px-6 text-center">
-      <h2 class="section-title">Showcase</h2>
-      <p class="text-gray-300 mb-8">First batch coming soon. Your game could be here 👇</p>
-      <div class="grid md:grid-cols-3 gap-6 opacity-40">
-        <div class="bg-gray-700 h-40 rounded-xl flex items-center justify-center">Game Slot</div>
-        <div class="bg-gray-700 h-40 rounded-xl flex items-center justify-center">Game Slot</div>
-        <div class="bg-gray-700 h-40 rounded-xl flex items-center justify-center">Game Slot</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section class="py-20 bg-gray-900">
-    <div class="max-w-3xl mx-auto px-6">
-      <h2 class="section-title text-center">FAQ</h2>
-      <div class="space-y-6 mt-10">
-        <div>
-          <h3 class="font-semibold text-lg">Is this paid?</h3>
-          <p class="text-gray-300">No. It’s a learning/portfolio playground. No equity, no salary (yet). Just fun + exposure.</p>
-        </div>
-        <div>
-          <h3 class="font-semibold text-lg">Can I use AI to code everything?</h3>
-          <p class="text-gray-300">Absolutely. We encourage Cursor/Windsurf/etc. Just credit tools if you like.</p>
-        </div>
-        <div>
-          <h3 class="font-semibold text-lg">How do I submit a game?</h3>
-          <p class="text-gray-300">Ping us on LinkedIn with a live link or repo. We’ll test and publish.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section class="py-20 bg-gray-800 text-center">
-    <h2 class="section-title mb-4">Talk to Us</h2>
-    <p class="text-gray-300 mb-8 max-w-xl mx-auto">Questions, collabs, or you just shipped something awesome? Reach out on LinkedIn—only channel we monitor.</p>
+<!-- HERO -->
+<section class="min-h-screen flex flex-col items-center justify-center text-center px-6 relative">
+  <img src="images/quickgame-space-small.png" alt="QuickGame Logo" class="w-28 mb-5 drop-shadow-lg">
+  <h1 class="text-4xl md:text-6xl font-extrabold mb-4">We Build Tiny Viral Games.</h1>
+  <p class="text-lg md:text-xl text-gray-200 max-w-2xl mb-8">
+    QuickGame.space is a micro game studio. We craft simple, addictive browser games for kids and bored adults.  
+    Want in? Student devs & designers welcome—come learn, ship, and show off.
+  </p>
+  <div class="flex flex-col sm:flex-row gap-4">
+    <a href="#roles" class="bg-yellow-400 text-gray-900 font-bold px-6 py-3 rounded-lg hover:bg-yellow-300 transition">Join the Dev Crew</a>
     <a href="https://www.linkedin.com/company/quickgame-space" target="_blank" class="bg-blue-600 hover:bg-blue-500 font-bold px-6 py-3 rounded-lg transition">Contact via LinkedIn</a>
-  </section>
+  </div>
+  <span class="mt-6 text-gray-400 text-sm">Made by students, for players.</span>
+</section>
 
-  <footer class="py-6 text-center text-gray-500 bg-gray-900">
-    © 2025 QuickGame.space
-  </footer>
+<!-- WHAT WE MAKE -->
+<section class="py-20 bg-gray-800/70">
+  <div class="max-w-5xl mx-auto px-6 text-center">
+    <h2 class="section-title">What We Make</h2>
+    <p class="text-gray-300 max-w-3xl mx-auto mb-12">
+      <strong>Snack-size, one-more-try games.</strong> 1–3 minute loops, dead-simple controls, instant play in a browser.  
+      Think <em>Flappy</em>, <em>2048</em>, <em>Stack</em>, <em>Slither-ish</em>—but fresh themes, seasonal twists, and meme energy.
+    </p>
+    <div class="grid md:grid-cols-3 gap-8 text-left">
+      <div class="card">
+        <h3 class="text-xl font-semibold mb-2">👾 Hyper-Casual</h3>
+        <p class="text-gray-300">Tap, swipe, survive. Perfect for phones & short breaks.</p>
+      </div>
+      <div class="card">
+        <h3 class="text-xl font-semibold mb-2">🌀 Endless / Score Chase</h3>
+        <p class="text-gray-300">High-score boards, brag screenshots, social sharing built-in.</p>
+      </div>
+      <div class="card">
+        <h3 class="text-xl font-semibold mb-2">🤝 Tiny Multiplayer</h3>
+        <p class="text-gray-300">Socket.io mini-arenas or asynchronous score battles.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY JOIN (STUDENTS) -->
+<section id="roles" class="py-20 bg-gray-900/70">
+  <div class="max-w-5xl mx-auto px-6 text-center">
+    <h2 class="section-title">Why Join as a Student Dev</h2>
+    <div class="grid md:grid-cols-4 gap-6 mt-10 text-left">
+      <div class="card"><h4 class="font-semibold mb-1">Ship Fast</h4><p class="text-gray-300 text-sm">Real games live in days, not semesters.</p></div>
+      <div class="card"><h4 class="font-semibold mb-1">AI-First Workflow</h4><p class="text-gray-300 text-sm">Cursor/Windsurf help you move 5× faster.</p></div>
+      <div class="card"><h4 class="font-semibold mb-1">Portfolio Proof</h4><p class="text-gray-300 text-sm">Public credits, LinkedIn shout-outs, hosted links.</p></div>
+      <div class="card"><h4 class="font-semibold mb-1">Team Vibes</h4><p class="text-gray-300 text-sm">Learn version control, sprints, code reviews.</p></div>
+    </div>
+
+    <h3 class="text-2xl font-bold mt-14 mb-6">Current Volunteer Roles</h3>
+    <ul class="text-gray-300 max-w-2xl mx-auto space-y-3 text-left">
+      <li>• Frontend Game Dev (JS/Phaser/Canvas)</li>
+      <li>• Pixel/Vector Artist & Animator</li>
+      <li>• Sound FX / Music Tweaker</li>
+      <li>• QA / Playtest Lead (break it & report)</li>
+    </ul>
+
+    <a href="https://www.linkedin.com/company/quickgame-space" target="_blank" class="mt-8 inline-block bg-blue-600 hover:bg-blue-500 font-bold px-6 py-3 rounded-lg transition">
+      Apply via LinkedIn
+    </a>
+    <p class="text-gray-500 text-sm mt-4">Unpaid/volunteer. Experience & credit only.</p>
+  </div>
+</section>
+
+<!-- HOW WE WORK -->
+<section class="py-20 bg-gray-800/70">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    <h2 class="section-title">How We Work</h2>
+    <ol class="text-left text-gray-300 space-y-4 max-w-xl mx-auto">
+      <li><strong>1. Pick a tiny concept</strong> – or we hand you one.</li>
+      <li><strong>2. Pair with AI</strong> – Cursor drafts code, you polish.</li>
+      <li><strong>3. Playtest & iterate</strong> – micro user feedback loops.</li>
+      <li><strong>4. Launch on QuickGame.space</strong> – share & watch the stats.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- SHOWCASE -->
+<section class="py-20 bg-gray-900/70">
+  <div class="max-w-5xl mx-auto px-6 text-center">
+    <h2 class="section-title">Fresh Drops</h2>
+    <p class="text-gray-300 mb-8">Coming soon – be in the first wave.</p>
+    <div class="grid md:grid-cols-3 gap-6 opacity-50">
+      <div class="bg-gray-700 h-40 rounded-xl flex items-center justify-center">Game Slot</div>
+      <div class="bg-gray-700 h-40 rounded-xl flex items-center justify-center">Game Slot</div>
+      <div class="bg-gray-700 h-40 rounded-xl flex items-center justify-center">Game Slot</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ & CONTACT -->
+<section class="py-20 bg-gray-800/70">
+  <div class="max-w-3xl mx-auto px-6 text-center">
+    <h2 class="section-title">FAQ</h2>
+    <div class="space-y-6 mt-10 text-left">
+      <div><h3 class="font-semibold text-lg">Is there pay or equity?</h3><p class="text-gray-300">Not right now. It’s experience, credits, and shipped games.</p></div>
+      <div><h3 class="font-semibold text-lg">Do I need experience?</h3><p class="text-gray-300">Basic JS is enough. We’ll help you lean on AI to fill gaps.</p></div>
+      <div><h3 class="font-semibold text-lg">Can I propose my own game?</h3><p class="text-gray-300">Absolutely. Pitch us a 1-sentence hook on LinkedIn.</p></div>
+    </div>
+
+    <h2 class="section-title mt-16">Talk to Us</h2>
+    <p class="text-gray-300 mb-8 max-w-xl mx-auto">
+      Questions or keen to help? We only answer on LinkedIn.
+    </p>
+    <a href="https://www.linkedin.com/company/quickgame-space" target="_blank" class="bg-blue-600 hover:bg-blue-500 font-bold px-6 py-3 rounded-lg transition">
+      Contact via LinkedIn
+    </a>
+  </div>
+</section>
+
+<footer class="py-6 text-center text-gray-500 bg-gray-900">
+  © 2025 QuickGame.space
+</footer>
 
 </body>
 </html>
